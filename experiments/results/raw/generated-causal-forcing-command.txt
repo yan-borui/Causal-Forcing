@@ -1,0 +1,1 @@
+inference.py --config_path configs/causal_forcing_dmd_chunkwise.yaml --checkpoint_path /home/researcher/projects/causal-forcing-repro/weights/chunkwise/causal_forcing.pt --data_path /home/researcher/projects/causal-forcing-repro/data/text_align.txt --output_folder /home/researcher/projects/causal-forcing-repro/data/generated/seed0/causal-forcing --num_output_frames 21 --seed 0

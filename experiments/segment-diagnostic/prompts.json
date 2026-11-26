@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "seed": 24001,
+    "label": "Workshop hammer",
+    "prompt": "A solitary woman kneels in a dim workshop, palms on concrete amid warm industrial lamps; then she stands and swings a heavy hammer in a full overhead arc, shoulders, hips, and legs driving the motion; finally she strides quickly across the room to a far workbench, covering the space with determined steps while long shadows stretch behind him and the camera glides in a grounded, cinematic style. Ultra-realistic, cinematic T2V: clean edges, stable exposure, minimal jitter, and high fidelity across frames and motion."
+  },
+  {
+    "id": 3,
+    "seed": 24003,
+    "label": "Basketball jump",
+    "prompt": "A single middle-aged man stands motionless on an empty basketball court under harsh spotlights, shoulders tight and feet planted; then he explodes upward into a high jump and mimics a forceful two-handed dunk with a full torso swing; finally he lands and sprints across the entire court to the far baseline, shoes squeaking on polished wood while the camera follows low and steady with dramatic shadows. Shot in high-resolution realism with shallow depth of field, gentle motion blur, clean lighting, and subtle atmospheric particles."
+  },
+  {
+    "id": 11,
+    "seed": 24011,
+    "label": "Rooftop kick",
+    "prompt": "A lone woman sits cross-legged on a tiled rooftop garden, city skyline hazy in the distance; then she rises and delivers a wide, sweeping high kick, hips turning and leg fully extended; finally she runs along the rooftop perimeter to the far corner, covering a long line past planters and railings as a smooth dolly shot captures breezy afternoon light, gentle cloth movement, and high-resolution realism. Rendered in ultra-realistic cinematic style with a 35mm look, natural skin texture, soft film grain, and steady tracking."
+  },
+  {
+    "id": 17,
+    "seed": 24017,
+    "label": "Staircase climb",
+    "prompt": "A lone woman crouches at the base of a spiral staircase in a narrow tower, fingertips touching the first step; then she rises and climbs rapidly up several flights with exaggerated strides and pumping arms; finally she reaches the top landing and sprints across a long hallway to a distant window, all in one unbroken take with dramatic chiaroscuro lighting and echoing footsteps. Film with realistic physics, sharp focus on the subject, slight background bokeh, and a calm, professional camera operator feel."
+  },
+  {
+    "id": 22,
+    "seed": 24022,
+    "label": "Pool dive",
+    "prompt": "A single man stands at the edge of a swimming pool, knees bent and arms drawn back; then he dives forward in a long, stretched arc into the water with clean form; finally he surfaces and power-swims to the far end in broad strokes, traveling the full lane as the camera tracks from above with clear reflections, sparkling highlights, and crisp splashes. Ultra-realistic, cinematic T2V: clean edges, stable exposure, minimal jitter, and high fidelity across frames and motion."
+  },
+  {
+    "id": 27,
+    "seed": 24027,
+    "label": "Desert scarf",
+    "prompt": "A lone woman sits on a sandy desert dune, knees drawn up against a harsh sky; then she stands and whips a long scarf overhead in a wide circular motion, shoulders turning with force; finally she runs down the dune and across the flat desert toward a distant rock formation, covering many meters as heat shimmer ripples and the camera holds a sweeping wide shot. Keep the environment vivid but uncluttered, with realistic textures, coherent perspective, and a polished, cinematic finish."
+  },
+  {
+    "id": 38,
+    "seed": 24038,
+    "label": "Studio leap",
+    "prompt": "A single adult man sits on the floor of a spacious studio, legs extended on smooth wood; then he stands and leaps forward in a broad dance jump, arms reaching and feet stretching long; finally he continues into a fast run across the studio to the far wall mirror, covering the entire room in one fluid shot with soft light, clean reflections, and detailed motion. Emphasize full-body motion clarity, stable framing, realistic lighting falloff, and a subtle filmic contrast without noise."
+  },
+  {
+    "id": 65,
+    "seed": 24065,
+    "label": "Hummingbird",
+    "prompt": "A single hummingbird hovers in front of vibrant tropical flowers near a waterfall, rendered in ultra‑high‑definition slow motion with crisp wing blur and lush color. At first it pauses midair, beak pointed toward a red hibiscus while mist sparkles behind it. Then it darts closer and feeds, body steady as wings tremble in a soft halo. Finally it pulls back and arcs upward, catching a sunbeam as it rises toward the canopy, with the waterfall and rainforest forming a dreamy backdrop. Ultra‑clean HD with cinematic lighting, smooth focus pulls, and detailed materials gives the scene a premium look."
+  },
+  {
+    "id": 67,
+    "seed": 24067,
+    "label": "Sea turtle",
+    "prompt": "A single sea turtle swims through a bright coral reef under clear tropical water, captured in high‑definition with realistic caustics and vibrant cinematic color. At first the turtle glides slowly above branching corals, flippers moving in calm, steady strokes. Then it dips downward to pass through a coral arch, shell catching flickers of sunlight. Finally it ascends toward the surface and turns, silhouetted against a wide blue expanse as bubbles rise and the reef fades into the distance. Rendered in cinematic 4K HDR with a stabilized camera, rich color grading, and clean, realistic textures throughout."
+  },
+  {
+    "id": 74,
+    "seed": 24074,
+    "label": "Kayaker",
+    "prompt": "A lone kayaker is the only person on a mirror‑smooth fjord surrounded by steep green cliffs and waterfalls, captured in cinematic 4K with glassy reflections and misty depth. At first the kayak is still at the center of the water, the paddler holding the paddle across their lap as fog rolls in. Then the paddler begins stroking steadily, ripples widening in perfect circles behind the boat. Finally the kayaker turns toward a waterfall and glides closer, dwarfed by cliffs and drifting spray. Rendered in crisp 4K with cinematic tone mapping, subtle grain, and a wide dynamic range that enriches the background."
+  },
+  {
+    "id": 79,
+    "seed": 24079,
+    "label": "Cyclist",
+    "prompt": "A lone cyclist rides through a coastal road lined with wildflowers and cliffs above a sparkling sea, filmed in cinematic UHD with crisp motion and sunlit haze. At first the cyclist is stopped at a viewpoint, one foot on the ground while the ocean stretches wide below. Then they push off and begin pedaling along the winding road, the camera tracking smoothly behind. Finally they stand on the pedals to climb a short incline, cresting the hill as the coastline opens into a breathtaking panorama. High‑definition, cinematic composition, gentle bokeh, and atmospheric haze elevate the scene into a polished movie moment."
+  },
+  {
+    "id": 86,
+    "seed": 24086,
+    "label": "Peacock",
+    "prompt": "A single peacock is framed in a palace garden with marble fountains and blooming roses, filmed in ultra‑high‑definition with cinematic color richness and fine feather detail. At first the peacock stands still on a stone path, tail folded, head held high in the sun. Then it takes a few measured steps forward, iridescent neck catching shifting light. Finally it spreads its tail into a full fan and holds it, filling the frame with shimmering patterns against the elegant garden backdrop. Captured in UHD with smooth camera motion, natural contrast, and fine environmental detail that feels like a feature film frame."
+  }
+]

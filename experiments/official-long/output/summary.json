@@ -1,0 +1,47 @@
+{
+  "cases": 24,
+  "prompt_count": 12,
+  "all_noise_cross_sections_match": true,
+  "generation_seconds": 2453.6140929110115,
+  "score_seconds": {
+    "subject": 52.575527352804784,
+    "quality": 53.13765661983052,
+    "motion": 311.7203793709632
+  },
+  "max_dit_allocated_gib": 10.418198585510254,
+  "max_vae_allocated_gib": 8.01420545578003,
+  "tail_means": [
+    {
+      "start": 20,
+      "end": 30,
+      "method": "attention",
+      "subject_pct": 85.7809104025,
+      "musiq": 67.0051751137,
+      "flow_top5_px": 56.9895570175
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "capped",
+      "subject_pct": 86.5836980442,
+      "musiq": 66.0692388217,
+      "flow_top5_px": 53.8901193001
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "causal_official_long",
+      "subject_pct": 90.3752972682,
+      "musiq": 69.4565269152,
+      "flow_top5_px": 23.1119831198
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "mixture",
+      "subject_pct": 85.7456040879,
+      "musiq": 64.8471229871,
+      "flow_top5_px": 56.6756531868
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+diff --git a/wan/modules/causal_model.py b/wan/modules/causal_model.py
+--- a/wan/modules/causal_model.py
++++ b/wan/modules/causal_model.py
+@@ -425,5 +425,8 @@
+                     device=kv_cache["k"].device,
+                 )
+-            topc_select_counts = kv_cache["topc_select_counts"]
++            topc_select_counts = kv_cache["topc_select_counts"]
++            probe = getattr(self, "cache_probe", None)
++            if probe is not None and "source_token" not in kv_cache:
++                kv_cache["source_token"] = torch.full_like(abs_frame_idx, -1)
+             if abs_frame_idx is not None:
+                 token_offsets_new = torch.arange(num_new_tokens, device=kv_cache["k"].device)
+@@ -506,6 +509,15 @@
+                         total_cap = min(total_cap, cached_len_aug)
+                         top_c = max(0, total_cap - forced_sink - R_eff)
+-                        keep_lists, protect_lists, topc_selected = _mkv_select_indices(
+-                            fused, T=cached_len_aug, R_eff=R_eff,
++                        rank_scores = fused
++                        if probe is not None:
++                            source_tokens = torch.cat((
++                                kv_cache["source_token"][0, :cached_len],
++                                torch.arange(current_start, current_end, device=K_aug.device),
++                            ))
++                            rank_scores, frame_info = probe.rank(
++                                fused, K_aug, source_tokens, forced_sink, R_eff, frame_seqlen
++                            )
++                        keep_lists, protect_lists, topc_selected = _mkv_select_indices(
++                            rank_scores, T=cached_len_aug, R_eff=R_eff,
+                             sink_tokens=forced_sink, top_c=top_c, device=K_aug.device,
+                             topc_counts=counts_aug,
+@@ -524,5 +536,14 @@
+                             source_topc_counts=counts_aug,
+                         )
+-                        prev_local_end = kv_cache["local_end_index"].item()
++                        if probe is not None:
++                            probe.record(
++                                self.probe_layer, current_start_frame, frame_seqlen,
++                                source_tokens, fused, counts_aug, self.PC.topc_max_reuse,
++                                forced_sink, R_eff, top_c, keep_lists[0], topc_selected[0],
++                                frame_info, _mkv_select_indices,
++                            )
++                            kept_source = source_tokens[keep_lists[0]]
++                            kv_cache["source_token"][0, :len(kept_source)] = kept_source
++                        prev_local_end = kv_cache["local_end_index"].item()
+                         available_slots = kv_cache_size - prev_local_end
+                         new_tokens_integrated = True
+@@ -542,5 +563,10 @@
+                     kv_cache["v"][:, sink_tokens_v + num_evicted_tokens:sink_tokens_v + num_evicted_tokens + num_rolled_tokens_v].clone()
+                 )
+-                abs_frame_idx[:, sink_tokens:sink_tokens + num_rolled_tokens] = (
++                if probe is not None:
++                    origins = kv_cache["source_token"]
++                    origins[:, sink_tokens:sink_tokens + num_rolled_tokens] = origins[
++                        :, sink_tokens + num_evicted_tokens:sink_tokens + num_evicted_tokens + num_rolled_tokens
++                    ].clone()
++                abs_frame_idx[:, sink_tokens:sink_tokens + num_rolled_tokens] = (
+                     abs_frame_idx[:, sink_tokens + num_evicted_tokens:sink_tokens + num_evicted_tokens + num_rolled_tokens]
+                 )
+@@ -572,5 +598,7 @@
+                     token_offsets = torch.arange(insert_len, device=kv_cache["k"].device)
+                     abs_frames = current_start_frame + torch.div(token_offsets, frame_seqlen, rounding_mode='floor')
+-                    abs_frame_idx[:, local_start_index:local_end_index] = abs_frames
++                    abs_frame_idx[:, local_start_index:local_end_index] = abs_frames
++                    if probe is not None:
++                        kv_cache["source_token"][:, local_start_index:local_end_index] = current_start + token_offsets
+             elif abs_frame_idx is not None and kv_cache["k"].shape[1] > local_end_index:
+                 abs_frame_idx[:, local_end_index:] = -1

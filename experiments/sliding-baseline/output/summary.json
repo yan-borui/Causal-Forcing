@@ -1,0 +1,71 @@
+{
+  "cases": 24,
+  "prompt_count": 12,
+  "all_noise_cross_sections_match": true,
+  "generation_seconds": 2455.6726920770016,
+  "score_seconds": {
+    "subject": 54.00173580815317,
+    "quality": 53.45686804491561,
+    "motion": 314.4243779251119
+  },
+  "max_dit_allocated_gib": 8.898210048675537,
+  "max_vae_allocated_gib": 7.9883222579956055,
+  "tail_means": [
+    {
+      "start": 20,
+      "end": 30,
+      "method": "attention",
+      "subject_pct": 85.7809104025,
+      "musiq": 67.0051751137,
+      "flow_top5_px": 56.9895570175
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "capped",
+      "subject_pct": 86.5836980442,
+      "musiq": 66.0692388217,
+      "flow_top5_px": 53.8901193001
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "causal_official_long",
+      "subject_pct": 90.3752972682,
+      "musiq": 69.4565269152,
+      "flow_top5_px": 23.1119831198
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "causal_sliding",
+      "subject_pct": 84.9795776109,
+      "musiq": 63.8246699969,
+      "flow_top5_px": 30.0649489899
+    },
+    {
+      "start": 20,
+      "end": 30,
+      "method": "mixture",
+      "subject_pct": 85.7456040879,
+      "musiq": 64.8471229871,
+      "flow_top5_px": 56.6756531868
+    }
+  ],
+  "exact_21_latent_prefixes": 24,
+  "worst_prefix_max_abs": 0.0,
+  "native_windows": [
+    [
+      21,
+      0
+    ]
+  ],
+  "cache_evidence": {
+    "native_blocks_per_clip": [
+      41
+    ],
+    "frames_per_clip": [
+      489
+    ]
+  }
+}

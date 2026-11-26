@@ -1,0 +1,10 @@
+stage,window_start_s,window_end_s,method,prompts,seeds_per_prompt,n_videos,subject_consistency_pct,musiq,flow_top5_px,dynamic_degree_passes,dynamic_degree_pct,effective_source_frames
+pooled,20,30,attention,12,2,24,85.780910,67.005175,56.989557,24,100.00,8.811003
+pooled,20,30,mixture,12,2,24,85.745604,64.847123,56.675653,24,100.00,5.899110
+pooled,20,30,capped,12,2,24,86.583698,66.069239,53.890119,24,100.00,9.067331
+original_seed,20,30,attention,12,1,12,87.189522,67.041397,52.131703,12,100.00,8.807873
+original_seed,20,30,mixture,12,1,12,85.105348,64.389270,57.179877,12,100.00,5.754158
+original_seed,20,30,capped,12,1,12,87.372704,65.661114,49.620764,12,100.00,9.217019
+replication_seed,20,30,attention,12,1,12,84.372299,66.968953,61.847411,12,100.00,8.814133
+replication_seed,20,30,mixture,12,1,12,86.385861,65.304976,56.171429,12,100.00,6.044061
+replication_seed,20,30,capped,12,1,12,85.794692,66.477363,58.159475,12,100.00,8.917644

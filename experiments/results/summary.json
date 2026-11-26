@@ -1,0 +1,58 @@
+{
+  "reference": {
+    "causal-forcing": {
+      "dynamic_degree": 0.68,
+      "positive": 68,
+      "count": 100,
+      "video_profiles": {
+        "832x480, 81 frames, 16 fps": 100
+      },
+      "evaluation_seconds": 224
+    },
+    "self-forcing": {
+      "dynamic_degree": 0.57,
+      "positive": 57,
+      "count": 100,
+      "video_profiles": {
+        "832x480, 81 frames, 16 fps": 100
+      },
+      "evaluation_seconds": 238
+    },
+    "paired": {
+      "both_positive": 52,
+      "only_causal": 16,
+      "only_self": 5,
+      "both_negative": 27
+    }
+  },
+  "generated": {
+    "causal-forcing": {
+      "dynamic_degree": 0.92,
+      "positive": 92,
+      "count": 100,
+      "video_profiles": {
+        "832x480, 81 frames, 16 fps": 100
+      },
+      "generation_seconds": 1567,
+      "evaluation_seconds": 226,
+      "sampled_peak_total_device_memory_mib": 17925
+    },
+    "self-forcing": {
+      "dynamic_degree": 0.7,
+      "positive": 70,
+      "count": 100,
+      "video_profiles": {
+        "832x480, 81 frames, 16 fps": 100
+      },
+      "generation_seconds": 1564,
+      "evaluation_seconds": 230,
+      "sampled_peak_total_device_memory_mib": 17925
+    },
+    "paired": {
+      "both_positive": 70,
+      "only_causal": 22,
+      "only_self": 0,
+      "both_negative": 8
+    }
+  }
+}

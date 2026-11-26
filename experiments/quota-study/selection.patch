@@ -1,0 +1,55 @@
+diff --git a/wan/modules/causal_model.py b/wan/modules/causal_model.py
+--- a/wan/modules/causal_model.py
++++ b/wan/modules/causal_model.py
+@@ -524,4 +524,12 @@
+                             topc_max_reuse=self.PC.topc_max_reuse,
+                         )
++                        if probe is not None:
++                            keep_lists, protect_lists, topc_selected = probe.adjust_selection(
++                                self.probe_layer, current_start_frame, fused, rank_scores,
++                                source_tokens, frame_info, forced_sink, R_eff, frame_seqlen,
++                                top_c, counts_aug, self.PC.topc_max_reuse,
++                                (keep_lists, protect_lists, topc_selected), _mkv_select_indices,
++                            )
+                         _mkv_prune_cache(
+                             kv_cache,
+diff --git a/cache_probe.py b/cache_probe.py
+--- a/cache_probe.py
++++ b/cache_probe.py
+@@ -76,5 +76,5 @@
+         if candidate_frames.min().item() < 0:
+             raise ValueError("Uninitialised source-token provenance in the candidate region")
+-        if self.method == "mixture":
++        if self.method != "attention":
+             native = selector(attention, len(origins), recent, sink, top_c, origins.device,
+                               topc_counts=counts, topc_max_reuse=reuse)[2][0]
+@@ -96,3 +96,4 @@
+         if frame_info is not None:
+             row["diversity_z"] = frame_info[1].cpu().tolist()
++        row.update(self.decision_record)
+         self.stream.write(json.dumps(row, separators=(",", ":")) + "\n")
+diff --git a/generate.py b/generate.py
+--- a/generate.py
++++ b/generate.py
+@@ -10,5 +10,5 @@
+ from torchvision.io import write_video
+ 
+-from cache_probe import CacheProbe
++from quota_selection import QuotaProbe as CacheProbe
+ from demo_utils.memory import DynamicSwapInstaller, get_cuda_free_memory_gb, gpu
+ from pipeline import CausalInferencePipeline
+@@ -97,4 +97,4 @@
+                     cache_tokens=[probe.total_kept_min, probe.total_kept_max],
+                     old_tokens=[probe.old_kept_min, probe.old_kept_max],
+-                    initial_noise_sample=noise_sample, **stage)
++                    initial_noise_sample=noise_sample, policy=probe.policy_stats, **stage)
+         temp_meta = meta_file.with_suffix(".partial")
+diff --git a/evaluate_segments.py b/evaluate_segments.py
+--- a/evaluate_segments.py
++++ b/evaluate_segments.py
+@@ -123,4 +123,4 @@
+     model = model_for(metric)
+     for row in prompts:
+-        for method in ("attention", "mixture"):
++        for method in json.loads(Path("methods.json").read_text()):
+             stem = f"{row['id']:03d}-{method}"

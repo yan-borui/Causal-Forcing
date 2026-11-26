@@ -1,0 +1,539 @@
+{
+  "n_prompts": 12,
+  "pairs_prefix_exact": 12,
+  "windows": [
+    {
+      "subject": {
+        "attention": 86.05920573075612,
+        "mixture": 86.2613673011462,
+        "delta": {
+          "mean": 0.20216157039006552,
+          "low": -0.15439255783955255,
+          "high": 0.5811376124620435,
+          "positive": 6,
+          "tied": 0,
+          "negative": 6
+        }
+      },
+      "global_anchor": {
+        "attention": 75.31728446483612,
+        "mixture": 75.68664203087489,
+        "delta": {
+          "mean": 0.3693575660387675,
+          "low": -0.28426726659138996,
+          "high": 1.0614815851052595,
+          "positive": 6,
+          "tied": 0,
+          "negative": 6
+        }
+      },
+      "musiq": {
+        "attention": 66.17899258931477,
+        "mixture": 65.61616897583008,
+        "delta": {
+          "mean": -0.5628236134847006,
+          "low": -1.2796295722325643,
+          "high": 0.04782369136810241,
+          "positive": 6,
+          "tied": 0,
+          "negative": 6
+        }
+      },
+      "flow_top5_px": {
+        "attention": 44.57652437234227,
+        "mixture": 45.647482628686525,
+        "delta": {
+          "mean": 1.0709582563442528,
+          "low": -0.9223316460124803,
+          "high": 3.4072564968768533,
+          "positive": 8,
+          "tied": 0,
+          "negative": 4
+        }
+      },
+      "dynamic_degree": {
+        "attention": 100.0,
+        "mixture": 100.0,
+        "delta": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "positive": 0,
+          "tied": 12,
+          "negative": 0
+        }
+      }
+    },
+    {
+      "subject": {
+        "attention": 88.18772335847218,
+        "mixture": 87.07414716482162,
+        "delta": {
+          "mean": -1.1135761936505635,
+          "low": -2.781935545305411,
+          "high": 0.48695872227350695,
+          "positive": 4,
+          "tied": 0,
+          "negative": 8
+        }
+      },
+      "global_anchor": {
+        "attention": 61.924937615791954,
+        "mixture": 63.26753795146942,
+        "delta": {
+          "mean": 1.3426003356774647,
+          "low": -0.09916973610719046,
+          "high": 2.8889473713934404,
+          "positive": 8,
+          "tied": 0,
+          "negative": 4
+        }
+      },
+      "musiq": {
+        "attention": 65.93139902750652,
+        "mixture": 65.1377903620402,
+        "delta": {
+          "mean": -0.7936086654663086,
+          "low": -2.6889336665471393,
+          "high": 0.8866154352823878,
+          "positive": 3,
+          "tied": 0,
+          "negative": 9
+        }
+      },
+      "flow_top5_px": {
+        "attention": 48.241530420659466,
+        "mixture": 54.535289281028234,
+        "delta": {
+          "mean": 6.293758860368769,
+          "low": 0.4395595003029456,
+          "high": 13.01895345954955,
+          "positive": 6,
+          "tied": 0,
+          "negative": 6
+        }
+      },
+      "dynamic_degree": {
+        "attention": 100.0,
+        "mixture": 100.0,
+        "delta": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "positive": 0,
+          "tied": 12,
+          "negative": 0
+        }
+      }
+    },
+    {
+      "subject": {
+        "attention": 87.18952188889186,
+        "mixture": 85.10534763336182,
+        "delta": {
+          "mean": -2.0841742555300393,
+          "low": -4.112348034977913,
+          "high": -0.1938172181447395,
+          "positive": 2,
+          "tied": 0,
+          "negative": 10
+        }
+      },
+      "global_anchor": {
+        "attention": 61.29522124926249,
+        "mixture": 57.27105985085169,
+        "delta": {
+          "mean": -4.024161398410797,
+          "low": -10.626754319916168,
+          "high": 1.0639333538711029,
+          "positive": 3,
+          "tied": 0,
+          "negative": 9
+        }
+      },
+      "musiq": {
+        "attention": 67.041397412618,
+        "mixture": 64.38926982879639,
+        "delta": {
+          "mean": -2.6521275838216147,
+          "low": -5.403644975026449,
+          "high": 0.06065781911213654,
+          "positive": 3,
+          "tied": 0,
+          "negative": 9
+        }
+      },
+      "flow_top5_px": {
+        "attention": 52.13170336821914,
+        "mixture": 57.17987739838629,
+        "delta": {
+          "mean": 5.048174030167142,
+          "low": -5.479288793440104,
+          "high": 15.520349674461254,
+          "positive": 7,
+          "tied": 0,
+          "negative": 5
+        }
+      },
+      "dynamic_degree": {
+        "attention": 100.0,
+        "mixture": 100.0,
+        "delta": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "positive": 0,
+          "tied": 12,
+          "negative": 0
+        }
+      }
+    }
+  ],
+  "late_minus_early": {
+    "subject": {
+      "mean": -2.286335825920105,
+      "low": -4.239426379402478,
+      "high": -0.44435409208138965,
+      "positive": 2,
+      "tied": 0,
+      "negative": 10
+    },
+    "global_anchor": {
+      "mean": -4.393518964449565,
+      "low": -10.947114508599043,
+      "high": 0.9070124352971665,
+      "positive": 2,
+      "tied": 0,
+      "negative": 10
+    },
+    "musiq": {
+      "mean": -2.089303970336914,
+      "low": -4.937410847345988,
+      "high": 0.7405364195505773,
+      "positive": 3,
+      "tied": 0,
+      "negative": 9
+    },
+    "flow_top5_px": {
+      "mean": 3.9772157738228895,
+      "low": -6.262809578738006,
+      "high": 13.934149296415123,
+      "positive": 7,
+      "tied": 0,
+      "negative": 5
+    },
+    "dynamic_degree": {
+      "mean": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "positive": 0,
+      "tied": 12,
+      "negative": 0
+    }
+  },
+  "retention": [
+    {
+      "replaced_pct": {
+        "mean": 27.42454594017094,
+        "low": 26.318108974358974,
+        "high": 28.488292378917375,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "anchor_change_pp": {
+        "mean": 3.2675654241001073,
+        "low": 0.950598662404231,
+        "high": 5.5270148168146545,
+        "positive": 10,
+        "tied": 0,
+        "negative": 2
+      },
+      "musiq_change": {
+        "mean": -0.3218760238539747,
+        "low": -1.3697314268276972,
+        "high": 0.7085641440735734,
+        "positive": 5,
+        "tied": 0,
+        "negative": 7
+      },
+      "source_time_change_s": {
+        "mean": -1.6323125368635978,
+        "low": -1.8298839034962597,
+        "high": -1.4425890259035734,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "effective_sources_actual": {
+        "mean": 4.388452050558784,
+        "low": 4.226237552649937,
+        "high": 4.561694312719164,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_native": {
+        "mean": 5.590531991311301,
+        "low": 5.391653994383692,
+        "high": 5.773187723975855,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_delta": {
+        "mean": -1.202079940752517,
+        "low": -1.3429796228470743,
+        "high": -1.0769222456349943,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "dominant_source_share_delta_pp": {
+        "mean": 7.045049857549858,
+        "low": 6.560496794871795,
+        "high": 7.550324964387462,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "low_anchor_delta_pp": {
+        "mean": -5.99341207854419,
+        "low": -18.16390611345652,
+        "high": 7.850202760471964,
+        "positive": 4,
+        "tied": 0,
+        "negative": 8
+      },
+      "low_quality_delta_pp": {
+        "mean": 6.70520383186049,
+        "low": -8.500592219830313,
+        "high": 22.262233950369158,
+        "positive": 6,
+        "tied": 0,
+        "negative": 6
+      },
+      "low_both_delta_pp": {
+        "mean": 1.0244326724124861,
+        "low": -5.45572467528864,
+        "high": 8.142763478874329,
+        "positive": 4,
+        "tied": 0,
+        "negative": 8
+      }
+    },
+    {
+      "replaced_pct": {
+        "mean": 22.682811016144353,
+        "low": 21.93419842117759,
+        "high": 23.47979359567902,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "anchor_change_pp": {
+        "mean": 3.74624159651648,
+        "low": 2.371895659294093,
+        "high": 5.224239737900763,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "musiq_change": {
+        "mean": -0.5070815519051499,
+        "low": -1.8538123088270166,
+        "high": 0.8844488158559155,
+        "positive": 4,
+        "tied": 0,
+        "negative": 8
+      },
+      "source_time_change_s": {
+        "mean": -2.8597751176034714,
+        "low": -3.1695717946992557,
+        "high": -2.4877716918204604,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "effective_sources_actual": {
+        "mean": 6.428831511835573,
+        "low": 6.050881476327028,
+        "high": 6.811934030001714,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_native": {
+        "mean": 7.788672145729476,
+        "low": 7.299694554334099,
+        "high": 8.25693014999101,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_delta": {
+        "mean": -1.3598406338939029,
+        "low": -1.5980364997238414,
+        "high": -1.1421670004436868,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "dominant_source_share_delta_pp": {
+        "mean": 6.473617046533714,
+        "low": 6.021189458689459,
+        "high": 6.968635001187084,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "low_anchor_delta_pp": {
+        "mean": -13.698642691474662,
+        "low": -21.37181057604464,
+        "high": -5.906995244792214,
+        "positive": 3,
+        "tied": 0,
+        "negative": 9
+      },
+      "low_quality_delta_pp": {
+        "mean": 5.5858134178241565,
+        "low": -3.954754020188473,
+        "high": 14.75160224893615,
+        "positive": 7,
+        "tied": 0,
+        "negative": 5
+      },
+      "low_both_delta_pp": {
+        "mean": -3.7353991869109247,
+        "low": -7.238527755238867,
+        "high": -0.779452753351297,
+        "positive": 3,
+        "tied": 0,
+        "negative": 9
+      }
+    },
+    {
+      "replaced_pct": {
+        "mean": 22.629604192104193,
+        "low": 22.14298115079365,
+        "high": 23.100201592389094,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "anchor_change_pp": {
+        "mean": 1.3171524481768833,
+        "low": -0.390660263187909,
+        "high": 4.00821803737408,
+        "positive": 8,
+        "tied": 0,
+        "negative": 4
+      },
+      "musiq_change": {
+        "mean": -0.11808137169337567,
+        "low": -0.9966645138588645,
+        "high": 0.6444026807378945,
+        "positive": 7,
+        "tied": 0,
+        "negative": 5
+      },
+      "source_time_change_s": {
+        "mean": -1.3345792714957494,
+        "low": -1.6191265997534967,
+        "high": -1.0853119927719344,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "effective_sources_actual": {
+        "mean": 5.754158064702999,
+        "low": 5.494394675682315,
+        "high": 6.000832409674649,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_native": {
+        "mean": 7.444377618806837,
+        "low": 7.019683869443467,
+        "high": 7.813454577470759,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "effective_sources_delta": {
+        "mean": -1.6902195541038394,
+        "low": -1.8863427737302145,
+        "high": -1.4846192175524304,
+        "positive": 0,
+        "tied": 0,
+        "negative": 12
+      },
+      "dominant_source_share_delta_pp": {
+        "mean": 7.804614367114369,
+        "low": 7.29369530932031,
+        "high": 8.30765733109483,
+        "positive": 12,
+        "tied": 0,
+        "negative": 0
+      },
+      "low_anchor_delta_pp": {
+        "mean": 0.17134352132027772,
+        "low": -6.42611745228728,
+        "high": 7.456635522028159,
+        "positive": 5,
+        "tied": 0,
+        "negative": 7
+      },
+      "low_quality_delta_pp": {
+        "mean": 1.1984206992522182,
+        "low": -7.511651432930514,
+        "high": 10.229435680104572,
+        "positive": 7,
+        "tied": 0,
+        "negative": 5
+      },
+      "low_both_delta_pp": {
+        "mean": 1.9528073301259254,
+        "low": -1.516278454457347,
+        "high": 6.102443714443383,
+        "positive": 6,
+        "tied": 0,
+        "negative": 6
+      }
+    }
+  ],
+  "examples": {
+    "lowest": 86,
+    "highest": 3
+  },
+  "generate": {
+    "attention": {
+      "mean_seconds": 99.41052902065469,
+      "elapsed_seconds_sum": 1192.9263482478564,
+      "dit_peak_mib_max": 10512.4189453125,
+      "vae_peak_mib_max": 8180.0419921875
+    },
+    "mixture": {
+      "mean_seconds": 100.32337406316462,
+      "elapsed_seconds_sum": 1203.8804887579754,
+      "dit_peak_mib_max": 10679.25439453125,
+      "vae_peak_mib_max": 8180.0419921875
+    }
+  },
+  "evaluation_seconds": {
+    "motion": 319.00665715697687,
+    "quality": 53.949269405100495,
+    "subject": 51.679102875932585
+  },
+  "machine": {
+    "start": "2026-11-24T10:38:59+08:00",
+    "generation_finished": "2026-11-24T11:20:12+08:00",
+    "evaluation_finished": "2026-11-24T11:27:36+08:00",
+    "generation_elapsed_seconds": 2473.471884727478,
+    "evaluation_elapsed_seconds_including_handoff": 443.66797614097595,
+    "elapsed_gpu_hours": 0.8103166280190149,
+    "generation_board_peak_mib": 16234,
+    "gpu_samples": 1237
+  }
+}

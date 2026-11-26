@@ -1,0 +1,13 @@
+{
+  "seed": 24017,
+  "frames": 489,
+  "identical_frames": 1,
+  "first_mismatch": 0,
+  "max_abs_pixel": 138,
+  "mean_abs_pixel": 1.9642413700366395,
+  "metadata_match": true,
+  "prefix_exact": true,
+  "archived_selections": 51,
+  "matched_selections": 51,
+  "all_layer_selections": 510
+}

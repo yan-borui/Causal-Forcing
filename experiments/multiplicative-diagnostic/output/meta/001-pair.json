@@ -1,0 +1,1 @@
+{"id": 1, "seed": 24001, "checked": {"attention": {"exact_prefix": true, "same_noise_sample": true, "seed": 24001, "events": 510}, "multiplicative": {"exact_prefix": true, "same_noise_sample": true, "seed": 24001, "events": 510}, "mixture": {"exact_prefix": true, "same_noise_sample": true, "seed": 24001, "events": 510}}}

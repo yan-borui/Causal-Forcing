@@ -1,0 +1,40 @@
+diff --git a/cache_probe.py b/cache_probe.py
+--- a/cache_probe.py
++++ b/cache_probe.py
+@@ -43,4 +43,5 @@ class CacheProbe:
+     def __init__(self, method, stream):
+         self.method = method
++        self.diversity_weight = 0.15 if method == "capped_015" else 0.5
+         self.stream = stream
+         self.events = 0
+@@ -59,4 +60,5 @@ class CacheProbe:
+         diversity, frame_info = frame_diversity(keys[0, old], source_tokens[old], spatial_size)
+         scores = fused.clone()
+-        scores[0, old] = 0.5 * standardize(fused[0, old], 0) + 0.5 * diversity
++        weight = self.diversity_weight
++        scores[0, old] = (1 - weight) * standardize(fused[0, old], 0) + weight * diversity
+         return scores, frame_info
+diff --git a/quota_selection.py b/quota_selection.py
+--- a/quota_selection.py
++++ b/quota_selection.py
+@@ -57,4 +57,4 @@ class QuotaProbe(CacheProbe):
+         if self.method in ("attention", "mixture"):
+             return selection
+-        if self.method not in ("capped", "two_stage"):
++        if self.method not in ("capped", "capped_015", "two_stage"):
+             raise ValueError(f"Unknown selection method {self.method}")
+@@ -109,4 +109,4 @@ class QuotaProbe(CacheProbe):
+         selected = chosen[2][0]
+         actual_hist = torch.bincount(frame[selected], minlength=length)
+-        if self.method == "capped" and int(actual_hist.max()) > cap:
++        if self.method in ("capped", "capped_015") and int(actual_hist.max()) > cap:
+             self.policy_stats["cap_violations"] += 1
+diff --git a/generate.py b/generate.py
+--- a/generate.py
++++ b/generate.py
+@@ -97,4 +97,5 @@ def generate(pipe, low_memory, prompt, method):
+                     cache_tokens=[probe.total_kept_min, probe.total_kept_max],
+                     old_tokens=[probe.old_kept_min, probe.old_kept_max],
++                    diversity_weight=probe.diversity_weight,
+                     initial_noise_sample=noise_sample, policy=probe.policy_stats, **stage)
+         temp_meta = meta_file.with_suffix(".partial")

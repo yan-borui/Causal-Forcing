@@ -1,0 +1,32 @@
+{
+  "cohort": "development, first seed group",
+  "prompts": 12,
+  "exact_prefix_matches": 12,
+  "diversity_weight": 0.15,
+  "comparison": [
+    "causal_sliding",
+    "attention",
+    "mixture",
+    "capped"
+  ],
+  "paired_segment_rows": 180,
+  "policy_015": {
+    "decisions": 6120,
+    "changes_to_additive": 4221,
+    "additive_exceeds_native_max": 4221,
+    "cap_violations": 0
+  },
+  "policy_050": {
+    "decisions": 6120,
+    "changes_to_additive": 4743,
+    "additive_exceeds_native_max": 4743,
+    "cap_violations": 0
+  },
+  "resources": {
+    "generation_s": 1290.8978579044342,
+    "scoring_s": 223.418466091156,
+    "total_h": 0.4206434233321084,
+    "peak_board_mib": 16452
+  },
+  "seconds_with_setup": 1517.6951897144318
+}
