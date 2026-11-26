@@ -8,9 +8,7 @@ def save_once(name, data):
     if target.exists() and json.loads(target.read_text()) != data:
         raise ValueError(f"Existing run configuration differs: {name}")
     if not target.exists():
-        target.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-        )
+        target.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def main():

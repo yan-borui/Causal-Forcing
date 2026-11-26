@@ -1,5 +1,4 @@
 """Generate only the requested arms and audit them against the actual baseline latents."""
-
 import json
 import os
 from pathlib import Path
@@ -28,28 +27,15 @@ def check_pair(prompt, methods, reuse_pilot):
         stem = f"{prompt['id']:03d}-{method}"
         folder = sources[method]
         meta = read(folder / "meta" / f"{stem}.json")
-        prefix = torch.load(
-            folder / "prefix" / f"{stem}.pt", map_location="cpu", weights_only=True
-        )
+        prefix = torch.load(folder / "prefix" / f"{stem}.pt", map_location="cpu", weights_only=True)
         if prefix0 is None:
             prefix0, noise0 = prefix, meta["initial_noise_sample"]
-        checked[method] = dict(
-            exact_prefix=torch.equal(prefix, prefix0),
-            same_noise_sample=meta["initial_noise_sample"] == noise0,
-            seed=meta["seed"],
-            events=meta["events"],
-        )
-        if (
-            meta["seed"] != prompt["seed"]
-            or not checked[method]["exact_prefix"]
-            or not checked[method]["same_noise_sample"]
-        ):
+        checked[method] = dict(exact_prefix=torch.equal(prefix, prefix0),
+                               same_noise_sample=meta["initial_noise_sample"] == noise0,
+                               seed=meta["seed"], events=meta["events"])
+        if meta["seed"] != prompt["seed"] or not checked[method]["exact_prefix"] or not checked[method]["same_noise_sample"]:
             raise ValueError(f"Paired initial conditions diverged: {stem}")
-        if (
-            meta["events"] != 510
-            or meta["cache_tokens"] != [24960, 24960]
-            or meta["old_tokens"] != [3120, 3120]
-        ):
+        if meta["events"] != 510 or meta["cache_tokens"] != [24960, 24960] or meta["old_tokens"] != [3120, 3120]:
             raise ValueError(f"Unexpected compression budget: {stem}")
     doc = dict(id=prompt["id"], seed=prompt["seed"], checked=checked)
     target = OUT / "meta" / f"{prompt['id']:03d}-pair.json"

@@ -1,5 +1,4 @@
 """Deep Forcing candidate ranking and selection provenance for the paired pilot."""
-
 import json
 
 import torch
@@ -57,59 +56,28 @@ class CacheProbe:
             return fused, None
         stop = len(source_tokens) - recent
         old = slice(sink, stop)
-        diversity, frame_info = frame_diversity(
-            keys[0, old], source_tokens[old], spatial_size
-        )
+        diversity, frame_info = frame_diversity(keys[0, old], source_tokens[old], spatial_size)
         scores = fused.clone()
         scores[0, old] = 0.5 * standardize(fused[0, old], 0) + 0.5 * diversity
         return scores, frame_info
 
-    def record(
-        self,
-        layer,
-        query_frame,
-        spatial_size,
-        origins,
-        attention,
-        counts,
-        reuse,
-        sink,
-        recent,
-        top_c,
-        kept,
-        selected,
-        frame_info,
-        selector,
-    ):
+    def record(self, layer, query_frame, spatial_size, origins, attention, counts, reuse,
+               sink, recent, top_c, kept, selected, frame_info, selector):
         self.events += 1
         n, c = len(kept), len(selected)
-        self.total_kept_min = (
-            n if self.total_kept_min is None else min(n, self.total_kept_min)
-        )
+        self.total_kept_min = n if self.total_kept_min is None else min(n, self.total_kept_min)
         self.total_kept_max = max(n, self.total_kept_max)
-        self.old_kept_min = (
-            c if self.old_kept_min is None else min(c, self.old_kept_min)
-        )
+        self.old_kept_min = c if self.old_kept_min is None else min(c, self.old_kept_min)
         self.old_kept_max = max(c, self.old_kept_max)
         if layer not in TRACE_LAYERS:
             return
         stop = len(origins) - recent
         candidate_frames = origins[sink:stop] // spatial_size
         if candidate_frames.min().item() < 0:
-            raise ValueError(
-                "Uninitialised source-token provenance in the candidate region"
-            )
+            raise ValueError("Uninitialised source-token provenance in the candidate region")
         if self.method == "mixture":
-            native = selector(
-                attention,
-                len(origins),
-                recent,
-                sink,
-                top_c,
-                origins.device,
-                topc_counts=counts,
-                topc_max_reuse=reuse,
-            )[2][0]
+            native = selector(attention, len(origins), recent, sink, top_c, origins.device,
+                              topc_counts=counts, topc_max_reuse=reuse)[2][0]
             # Both selections address this exact cache before it is modified.
             selected_mask = torch.zeros_like(origins, dtype=torch.bool)
             selected_mask[selected] = True
@@ -121,21 +89,10 @@ class CacheProbe:
         actual = torch.bincount(origins[selected] // spatial_size, minlength=slots)
         reference = torch.bincount(origins[native] // spatial_size, minlength=slots)
         frame_ids = torch.where(available > 0)[0]
-        hist = torch.stack(
-            [frame_ids, available[frame_ids], actual[frame_ids], reference[frame_ids]],
-            1,
-        )
-        row = dict(
-            layer=layer,
-            query=query_frame,
-            sink=sink,
-            recent=recent,
-            kept=n,
-            selected=c,
-            native=len(native),
-            overlap=overlap,
-            frames=hist.cpu().tolist(),
-        )
+        hist = torch.stack([frame_ids, available[frame_ids], actual[frame_ids], reference[frame_ids]], 1)
+        row = dict(layer=layer, query=query_frame, sink=sink, recent=recent,
+                   kept=n, selected=c, native=len(native), overlap=overlap,
+                   frames=hist.cpu().tolist())
         if frame_info is not None:
             row["diversity_z"] = frame_info[1].cpu().tolist()
         self.stream.write(json.dumps(row, separators=(",", ":")) + "\n")

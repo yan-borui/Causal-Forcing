@@ -1,5 +1,4 @@
 """Render the same workshop and peacock moments with three cache rules, on CPU."""
-
 from pathlib import Path
 import sys
 
@@ -12,11 +11,8 @@ from visualize import COLORS, NAMES, cases, load
 
 
 def main():
-    sources = {
-        "attention": PILOT / "output",
-        "capped": ORIGINAL_CAP / "output",
-        "capped_015": RUN / "output",
-    }
+    sources = {"attention": PILOT / "output", "capped": ORIGINAL_CAP / "output",
+               "capped_015": RUN / "output"}
     NAMES.update(attention="Deep Forcing", capped="50% + cap", capped_015="15% + cap")
     COLORS["capped_015"] = "#6c4a99"
     figures = RUN / "output/figures"
@@ -25,14 +21,7 @@ def main():
         rows = []
         for method, source in sources.items():
             score = load(source / "scores/subject" / f"{ident:03d}-{method}.json")
-            rows.append(
-                dict(
-                    window="2",
-                    id=ident,
-                    method=method,
-                    subject=100 * score["segments"][2]["subject"],
-                )
-            )
+            rows.append(dict(window="2", id=ident, method=method, subject=100*score["segments"][2]["subject"]))
         cases(ident, label, list(sources), sources, rows, figures)
 
 

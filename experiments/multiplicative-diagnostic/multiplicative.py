@@ -1,5 +1,4 @@
 """Small multiplicative modulation of Deep Forcing's native, signed token score."""
-
 import torch
 
 from cache_probe import CacheProbe, frame_diversity
@@ -17,9 +16,7 @@ class MultiplicativeProbe(CacheProbe):
 
     def rank(self, fused, keys, source_tokens, sink, recent, spatial_size):
         old = slice(sink, len(source_tokens) - recent)
-        diversity, frame_info = frame_diversity(
-            keys[0, old], source_tokens[old], spatial_size
-        )
+        diversity, frame_info = frame_diversity(keys[0, old], source_tokens[old], spatial_size)
         native = fused[0, old]
         factor = 1 + WEIGHT * diversity
         scores = fused.clone()
@@ -32,11 +29,7 @@ class MultiplicativeProbe(CacheProbe):
         return scores, frame_info
 
     def score_statistics(self):
-        return dict(
-            weight=WEIGHT,
-            pre_reuse_candidates=self.candidates,
-            negative_native_scores=self.negative_scores,
-            nonpositive_factors=self.nonpositive_factors,
-            minimum_factor=self.minimum,
-            maximum_factor=self.maximum,
-        )
+        return dict(weight=WEIGHT, pre_reuse_candidates=self.candidates,
+                    negative_native_scores=self.negative_scores,
+                    nonpositive_factors=self.nonpositive_factors,
+                    minimum_factor=self.minimum, maximum_factor=self.maximum)

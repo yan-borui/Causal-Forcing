@@ -1,5 +1,4 @@
 """Two finite-budget interventions on the original Deep Forcing candidates."""
-
 import numpy as np
 import torch
 
@@ -30,7 +29,7 @@ def bounded_quotas(capacity, weight, budget):
         whole = np.floor(ideal).astype(np.int64)
         quota[ids] += whole
         left = remaining - int(whole.sum())
-        order = np.argsort(-(ideal - whole), kind="stable")
+        order = np.argsort(-(ideal-whole), kind="stable")
         quota[ids[order[:left]]] += 1
         break
     return quota
@@ -49,32 +48,12 @@ def frame_ranks(scores, frame_index, counts):
 class QuotaProbe(CacheProbe):
     def __init__(self, method, stream):
         super().__init__(method, stream)
-        self.policy_stats = dict(
-            decisions=0,
-            additive_exceeds_native_max=0,
-            changes_to_additive=0,
-            cap_violations=0,
-            allocated_frames_missing=0,
-        )
+        self.policy_stats = dict(decisions=0, additive_exceeds_native_max=0, changes_to_additive=0,
+                                 cap_violations=0, allocated_frames_missing=0)
         self.decision_record = {}
 
-    def adjust_selection(
-        self,
-        layer,
-        query,
-        fused,
-        scores,
-        origins,
-        frame_info,
-        sink,
-        recent,
-        spatial,
-        top_c,
-        counts,
-        reuse,
-        selection,
-        selector,
-    ):
+    def adjust_selection(self, layer, query, fused, scores, origins, frame_info, sink, recent,
+                         spatial, top_c, counts, reuse, selection, selector):
         if self.method in ("attention", "mixture"):
             return selection
         if self.method not in ("capped", "two_stage"):
@@ -82,15 +61,8 @@ class QuotaProbe(CacheProbe):
         total = len(origins)
         stop = total - recent
         device = origins.device
-        options = dict(
-            T=total,
-            R_eff=recent,
-            sink_tokens=sink,
-            top_c=top_c,
-            device=device,
-            topc_counts=counts,
-            topc_max_reuse=reuse,
-        )
+        options = dict(T=total, R_eff=recent, sink_tokens=sink, top_c=top_c, device=device,
+                       topc_counts=counts, topc_max_reuse=reuse)
         raw_idx = selection[2][0]
         native_idx = selector(fused, **options)[2][0]
         nslots = len(raw_idx)
@@ -107,20 +79,14 @@ class QuotaProbe(CacheProbe):
             positions = torch.arange(sink, stop, device=device)
             if counts is not None and reuse > 0:
                 positions = positions[counts[0, positions] < reuse]
-            ids, group, sizes = torch.unique(
-                frame[positions], sorted=True, return_inverse=True, return_counts=True
-            )
+            ids, group, sizes = torch.unique(frame[positions], sorted=True, return_inverse=True, return_counts=True)
             if self.method == "two_stage":
                 sums = torch.zeros(len(ids), device=device)
                 sums.index_add_(0, group, fused[0, positions])
                 frame_attention = standardize(sums / sizes, 0)
                 diversity = frame_info[1][torch.searchsorted(frame_info[0], ids)]
-                weights = torch.softmax(
-                    (0.5 * frame_attention + 0.5 * diversity).double(), dim=0
-                )
-                quotas = bounded_quotas(
-                    sizes.cpu().tolist(), weights.cpu().tolist(), nslots
-                )
+                weights = torch.softmax((0.5*frame_attention + 0.5*diversity).double(), dim=0)
+                quotas = bounded_quotas(sizes.cpu().tolist(), weights.cpu().tolist(), nslots)
                 limits = torch.as_tensor(quotas, device=device)
                 ordering = fused[0, positions]
             else:
@@ -132,19 +98,13 @@ class QuotaProbe(CacheProbe):
             candidate[0, allowed] = scores[0, allowed]
             chosen = selector(candidate, **options)
             selected = chosen[2][0]
-            if len(selected) != nslots or not bool(
-                torch.isfinite(candidate[0, selected]).all()
-            ):
+            if len(selected) != nslots or not bool(torch.isfinite(candidate[0, selected]).all()):
                 raise ValueError("An ineligible token entered the allocation")
             if self.method == "two_stage":
                 actual = torch.bincount(frame[selected], minlength=length)[ids]
                 if not torch.equal(actual, limits):
-                    raise ValueError(
-                        "Within-frame selection diverged from the assigned quotas"
-                    )
-                self.policy_stats["allocated_frames_missing"] += int(
-                    (actual == 0).sum()
-                )
+                    raise ValueError("Within-frame selection diverged from the assigned quotas")
+                self.policy_stats["allocated_frames_missing"] += int((actual == 0).sum())
 
         selected = chosen[2][0]
         actual_hist = torch.bincount(frame[selected], minlength=length)
@@ -153,15 +113,10 @@ class QuotaProbe(CacheProbe):
             raise ValueError("Exceeded the maximum allocated by same-cache attention")
         self.policy_stats["decisions"] += 1
         self.policy_stats["additive_exceeds_native_max"] += int(exceeds)
-        self.policy_stats["changes_to_additive"] += int(
-            not torch.equal(selected, raw_idx)
-        )
+        self.policy_stats["changes_to_additive"] += int(not torch.equal(selected, raw_idx))
         if layer in TRACE_LAYERS:
             used = torch.where(raw_hist > 0)[0]
-            self.decision_record = dict(
-                native_cap=cap,
-                additive_max=int(raw_hist.max()),
-                actual_max=int(actual_hist.max()),
-                additive_frames=torch.stack([used, raw_hist[used]], 1).cpu().tolist(),
-            )
+            self.decision_record = dict(native_cap=cap, additive_max=int(raw_hist.max()),
+                                        actual_max=int(actual_hist.max()),
+                                        additive_frames=torch.stack([used,raw_hist[used]],1).cpu().tolist())
         return chosen

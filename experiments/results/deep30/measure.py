@@ -1,5 +1,4 @@
 """Measure CUDA peaks at the existing Deep Forcing stage boundaries."""
-
 import json
 import os
 import runpy
@@ -18,18 +17,9 @@ started = time.monotonic()
 
 def finish_stage():
     torch.cuda.synchronize()
-    print(
-        "MEMORY",
-        json.dumps(
-            dict(
-                stage=stage,
-                seconds=time.monotonic() - started,
-                allocated_mib=torch.cuda.max_memory_allocated() / 2**20,
-                reserved_mib=torch.cuda.max_memory_reserved() / 2**20,
-            )
-        ),
-        flush=True,
-    )
+    print("MEMORY", json.dumps(dict(stage=stage, seconds=time.monotonic()-started,
+          allocated_mib=torch.cuda.max_memory_allocated()/2**20,
+          reserved_mib=torch.cuda.max_memory_reserved()/2**20)), flush=True)
 
 
 def begin(name):

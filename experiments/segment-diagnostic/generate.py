@@ -1,5 +1,4 @@
 """Paired, single-GPU 30-second inference with the official Deep Forcing pipeline."""
-
 import gzip
 import json
 import os
@@ -24,9 +23,7 @@ CHECKPOINT = ROOT.parent.parent / "weights/chunkwise/causal_forcing.pt"
 
 def load_pipeline():
     set_seed(0)
-    cfg = OmegaConf.merge(
-        OmegaConf.load("configs/default_config.yaml"), OmegaConf.load(CONFIG)
-    )
+    cfg = OmegaConf.merge(OmegaConf.load("configs/default_config.yaml"), OmegaConf.load(CONFIG))
     cfg.model_kwargs.update(dict(is_ds_only=False, budget=16, recent=4))
     pipe = CausalInferencePipeline(cfg, device=torch.device("cuda"))
     state = torch.load(CHECKPOINT, map_location="cpu")
@@ -84,12 +81,8 @@ def generate(pipe, low_memory, prompt, method):
             for index, block in enumerate(pipe.generator.model.blocks):
                 block.self_attn.cache_probe = probe
                 block.self_attn.probe_layer = index
-            pixels = pipe.inference(
-                noise=noise,
-                text_prompts=[prompt["prompt"]],
-                return_latents=False,
-                low_memory=low_memory,
-            )
+            pixels = pipe.inference(noise=noise, text_prompts=[prompt["prompt"]],
+                                    return_latents=False, low_memory=low_memory)
         pipe.vae.model.clear_cache()
         frames = pixels[0].permute(0, 2, 3, 1).mul_(255).to(torch.uint8)
         if tuple(frames.shape) != (489, 480, 832, 3):
@@ -99,32 +92,16 @@ def generate(pipe, low_memory, prompt, method):
         os.replace(temp_video, video_file)
         os.replace(temp_trace, trace_file)
         os.replace(prefix_file.with_suffix(".partial"), prefix_file)
-        meta = dict(
-            id=prompt["id"],
-            method=method,
-            seed=prompt["seed"],
-            frames=len(frames),
-            elapsed_seconds=time.perf_counter() - start,
-            events=probe.events,
-            cache_tokens=[probe.total_kept_min, probe.total_kept_max],
-            old_tokens=[probe.old_kept_min, probe.old_kept_max],
-            initial_noise_sample=noise_sample,
-            **stage,
-        )
+        meta = dict(id=prompt["id"], method=method, seed=prompt["seed"], frames=len(frames),
+                    elapsed_seconds=time.perf_counter()-start, events=probe.events,
+                    cache_tokens=[probe.total_kept_min, probe.total_kept_max],
+                    old_tokens=[probe.old_kept_min, probe.old_kept_max],
+                    initial_noise_sample=noise_sample, **stage)
         temp_meta = meta_file.with_suffix(".partial")
         temp_meta.write_text(json.dumps(meta), encoding="utf-8")
         os.replace(temp_meta, meta_file)
-        print(
-            "DONE",
-            stem,
-            round(meta["elapsed_seconds"], 1),
-            "seconds",
-            "cache",
-            meta["cache_tokens"],
-            "events",
-            meta["events"],
-            flush=True,
-        )
+        print("DONE", stem, round(meta["elapsed_seconds"], 1), "seconds",
+              "cache", meta["cache_tokens"], "events", meta["events"], flush=True)
     finally:
         pipe.vae.decode_to_pixel = original_decode
         pipe.kv_cache1 = pipe.crossattn_cache = None
@@ -139,29 +116,18 @@ def main():
     prompts = json.loads(Path("prompts.json").read_text(encoding="utf-8"))
     pipe, low_memory = load_pipeline()
     for index, prompt in enumerate(prompts):
-        methods = (
-            ("attention", "mixture") if index % 2 == 0 else ("mixture", "attention")
-        )
+        methods = ("attention", "mixture") if index % 2 == 0 else ("mixture", "attention")
         for method in methods:
             generate(pipe, low_memory, prompt, method)
         stem = f"{prompt['id']:03d}"
-        a, m = [
-            torch.load(
-                OUT / "prefix" / f"{stem}-{x}.pt", map_location="cpu", weights_only=True
-            )
-            for x in ("attention", "mixture")
-        ]
-        records = [
-            json.loads((OUT / "meta" / f"{stem}-{x}.json").read_text())
-            for x in ("attention", "mixture")
-        ]
-        pair = dict(
-            id=prompt["id"],
-            exact_prefix=torch.equal(a, m),
-            prefix_max_abs=(a.float() - m.float()).abs().max().item(),
-            same_initial_noise_sample=records[0]["initial_noise_sample"]
-            == records[1]["initial_noise_sample"],
-        )
+        a, m = [torch.load(OUT / "prefix" / f"{stem}-{x}.pt", map_location="cpu", weights_only=True)
+                for x in ("attention", "mixture")]
+        records = [json.loads((OUT / "meta" / f"{stem}-{x}.json").read_text())
+                   for x in ("attention", "mixture")]
+        pair = dict(id=prompt["id"], exact_prefix=torch.equal(a, m),
+                    prefix_max_abs=(a.float()-m.float()).abs().max().item(),
+                    same_initial_noise_sample=records[0]["initial_noise_sample"] ==
+                                              records[1]["initial_noise_sample"])
         (OUT / "meta" / f"{stem}-pair.json").write_text(json.dumps(pair))
         print("PAIR", json.dumps(pair), flush=True)
 

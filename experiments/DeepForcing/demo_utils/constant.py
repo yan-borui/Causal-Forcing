@@ -1,3 +1,4 @@
+
 import torch
 
 
@@ -33,7 +34,7 @@ ZERO_VAE_CACHE = [
     torch.zeros(1, 96, 2, 480, 832),
     torch.zeros(1, 96, 2, 480, 832),
     torch.zeros(1, 96, 2, 480, 832),
-    torch.zeros(1, 96, 2, 480, 832),
+    torch.zeros(1, 96, 2, 480, 832)
 ]
 
 feat_names = [f"vae_cache_{i}" for i in range(len(ZERO_VAE_CACHE))]
